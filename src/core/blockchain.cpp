@@ -21,13 +21,17 @@ const Block& Blockchain::getLatestBlock() const {
     return chain.back();
 }
 
+const std::vector<Block>& Blockchain::getChain() const {
+    return chain;
+}
+
 Block Blockchain::createBlock(const std::string& data) {
     Block newBlock;
     newBlock.index = chain.size();
     newBlock.timestamp = std::time(nullptr);
     newBlock.prevHash = getLatestBlock().hash;
     newBlock.extraData = data;
-    newBlock.merkleRoot = "TODO"; // later implement merkle tree
+    newBlock.merkleRoot = "TODO"; // future: merkle tree
     newBlock.hash = calculateHash(newBlock);
     return newBlock;
 }

@@ -1,29 +1,35 @@
-cmake_minimum_required(VERSION 3.13)
-project(VeidtCoin)
+cmake_minimum_required(VERSION 3.10)
+project(veidtcoin-core)
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Compiler options
-if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE Release)
-endif()
+# Enable verbose makefiles
+set(CMAKE_VERBOSE_MAKEFILE ON)
 
-# Include directories
-include_directories(
-  ${PROJECT_SOURCE_DIR}/src
-  ${PROJECT_SOURCE_DIR}/src/crypto
-  ${PROJECT_SOURCE_DIR}/src/cryptonote_basic
+# Include subdirectories
+add_subdirectory(src/core)
+add_subdirectory(src/crypto)
+add_subdirectory(src/network)
+add_subdirectory(src/daemon)
+add_subdirectory(src/genesis)
+
+# Main executable
+add_executable(veidtd
+    src/main.cpp
 )
 
-# Source files
-set(SOURCES
-  src/daemon/main.cpp
-  src/version.cpp
-  src/cryptonote_basic/account.cpp
-  src/crypto/crypto.cpp
-  src/blockchain_db/db_lmdb.cpp
-  src/wallet/wallet2.cpp
+target_include_directories(veidtd PRIVATE
+    src/core
+    src/crypto
+    src/network
+    src/daemon
+    src/genesis
 )
 
-add_executable(veidtd ${SOURCES})
+target_link_libraries(veidtd
+    core
+    crypto
+    network
+    daemon
+    genesis
+)

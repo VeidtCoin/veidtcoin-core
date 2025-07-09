@@ -20,6 +20,7 @@ public:
     const Block& getLatestBlock() const;
     void addBlock(const std::string& data);
     bool validateChain() const;
+    const std::vector<Block>& getChain() const;
 
 private:
     std::vector<Block> chain;

@@ -1,11 +1,12 @@
-#pragma once
+#ifndef VEIDTCOIN_CRYPTO_H
+#define VEIDTCOIN_CRYPTO_H
 
 #include <string>
 
-namespace crypto {
-
-std::string generate_public_key();
+std::string sha256(const std::string& input);
+std::string keccak256(const std::string& input);
 std::string generate_private_key();
-bool verify_signature(const std::string& message, const std::string& signature);
+std::string derive_public_key(const std::string& privateKey);
+std::string generate_ring_signature(const std::string& message);
 
-}
+#endif
